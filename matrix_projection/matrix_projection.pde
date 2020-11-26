@@ -1,11 +1,6 @@
 PVector[] points = new PVector[8];
 float angle = 0;
 
-float[][] projection = {
-  {1, 0, 0},
-  {0, 1, 0}
-};
-
 void setup() {
   size(800, 600);
   
@@ -51,6 +46,12 @@ void draw() {
     PVector rotated = matmul(rotationX, v);
     rotated = matmul(rotationX, rotated);
     rotated = matmul(rotationZ, rotated);
+    
+    float distance = 2;
+    float z = 1/ (distance - rotated.z);
+    float[][] projection = {
+    {z, 0, 0},
+    {0, z, 0}};
     PVector projected2d = matmul(projection, rotated);
     projected2d.mult(200);
     projected[index] = projected2d;
@@ -72,7 +73,7 @@ void draw() {
   };
  
   
-  angle += 0.005;
+  angle += 0.01;
 }
 
 void connect(int i, int j, PVector[] points) {
